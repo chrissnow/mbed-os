@@ -13,6 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#if !defined(MBED_APP_START) // do not include CRP if there is a bootloader.
+#if !defined(BOOTLOADER_ADDR) // do not include CRP if there is a bootloader.
     long CRP_Key __attribute__((section(".ARM.__at_0x000002FC "))) = 0xFFFFFFFF;
 #endif
