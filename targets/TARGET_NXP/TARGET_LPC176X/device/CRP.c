@@ -13,10 +13,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+ 
+ 
+ /* Code Read Protection
+
+NONE	0xFFFFFFFF - No code protection.
+
+CRP1    0x12345678 - Write to RAM command can not access RAM below 0x10000200.
+                   - Read Memory command: disabled.
+                   - Copy RAM to Flash command: cannot write to Sector 0.
+                   - "Go" command: disabled.
+                   - Erase sector(s) command: can erase any individual sector except 
+                   	 sector 0 only, or can erase all sectors at once.
+                   - Compare command: disabled
+
+CRP2    0x87654321 - Write to RAM command: disabled.
+                   - Copy RAM to Flash: disabled.
+                   - Erase command: only allows erase of all sectors.
+
+CRP3    0x43218765 - Access to chip via the SWD pins is disabled. ISP entry
+                     by pulling PIO0_1 LOW is disabled if a valid user code is
+                     present in flash sector 0.
+Caution: If CRP3 is selected, no future factory testing can be
+performed on the device.
+*/
+ 
 #if !defined(BOOTLOADER_ADDR) // do not include CRP if there is a bootloader.
-	#if defined (__ICCARM__)
-		const long CRP_Key @0x000002FC = 0xFFFFFFFF;
-	#else
-		const long CRP_Key __attribute__((section(".ARM.__at_0x000002FC "))) = 0xFFFFFFFF;
+    #if defined (__ICCARM__)
+        const long CRP_Key @0x000002FC = 0xFFFFFFFF;
+    #else
+        const long CRP_Key __attribute__((section(".ARM.__at_0x000002FC "))) = 0xFFFFFFFF;
 	#endif
 #endif
