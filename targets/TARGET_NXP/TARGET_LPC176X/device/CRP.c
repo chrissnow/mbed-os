@@ -14,5 +14,9 @@
  * limitations under the License.
  */
 #if !defined(BOOTLOADER_ADDR) // do not include CRP if there is a bootloader.
-    long CRP_Key __attribute__((section(".ARM.__at_0x000002FC "))) = 0xFFFFFFFF;
+	#if defined (__ICCARM__)
+		const long CRP_Key @0x000002FC = 0xFFFFFFFF;
+	#else
+		const long CRP_Key __attribute__((section(".ARM.__at_0x000002FC "))) = 0xFFFFFFFF;
+	#endif
 #endif
