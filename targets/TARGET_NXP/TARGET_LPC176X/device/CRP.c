@@ -38,10 +38,12 @@ Caution: If CRP3 is selected, no future factory testing can be
 performed on the device.
 */
  
-#if !defined(BOOTLOADER_ADDR) // do not include CRP if there is a bootloader.
+#if !defined(BOOTLOADER_ADDR) // Do not include CRP if there is a bootloader.
     #if defined (__ICCARM__)
-        const long CRP_Key @0x000002FC = 0xFFFFFFFF;
+        __root const long CRP_Key@0x000002FC = 0xFFFFFFFF;
+    #elif defined (__GNUC__)
+        const long CRP_Key __attribute__((used)) __attribute__((section(".CRPSection"))) = 0xFFFFFFFF;
     #else
-        const long CRP_Key __attribute__((section(".ARM.__at_0x000002FC "))) = 0xFFFFFFFF;
-	#endif
+        const long CRP_Key __attribute__((used)) __attribute__((section(".ARM.__at_0x000002FC"))) = 0xFFFFFFFF;
+    #endif
 #endif
