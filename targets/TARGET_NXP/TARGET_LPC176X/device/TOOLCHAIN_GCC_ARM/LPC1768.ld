@@ -46,13 +46,13 @@ ENTRY(Reset_Handler)
 
 SECTIONS
 {
-    .CRPSection 0x000002FC :
-    {
-        KEEP(*(.CRPSection))
-    } > m_data
     .text :
     {
         KEEP(*(.isr_vector))
+        /* Code Read Protect data */
+        . = 0x000002FC ;
+        KEEP(*(.CRPSection))
+        /* End of Code Read Protect */
         *(.text*)
 
         KEEP(*(.init))
@@ -75,6 +75,8 @@ SECTIONS
         *(.rodata*)
 
         KEEP(*(.eh_frame*))
+		
+		
     } > FLASH
 
     .ARM.extab : 
