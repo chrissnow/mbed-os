@@ -14,7 +14,8 @@
  * limitations under the License.
  */
  
- 
+ #include "mbed_toolchain.h"
+
  /* Code Read Protection
 
 NONE	0xFFFFFFFF - No code protection.
@@ -41,10 +42,17 @@ performed on the device.
     #define APPLICATION_ADDR 0
 #endif
 
+#define CRP_NONE	0xFFFFFFFF
+#define CRP_1		0x12345678 
+#define CRP_2		0x87654321
+#define CRP_3		0x43218765
+
+#define CRP CRP_NONE
+
 #if defined (__ICCARM__)
-    __root const long CRP_Key@APPLICATION_ADDR + 0x000002FC = 0xFFFFFFFF;
+    __root const long CRP_Key@APPLICATION_ADDR + 0x000002FC = CRP;
 #elif defined (__ARMCC_VERSION)
-    const long CRP_Key __attribute__((used)) __attribute__((at(APPLICATION_ADDR+0x000002FC))) = 0xFFFFFFFF;
+    const long CRP_Key __attribute__((used)) __attribute__((at(APPLICATION_ADDR+0x000002FC))) = CRP;
 #elif defined (__GNUC__)
-    const long CRP_Key __attribute__((used)) __attribute__((section(".CRPSection"))) = 0xFFFFFFFF;
+    const long CRP_Key __attribute__((used)) __attribute__((section(".CRPSection"))) = CRP;
 #endif
