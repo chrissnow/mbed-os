@@ -47,7 +47,9 @@ performed on the device.
 #define CRP_2		0x87654321
 #define CRP_3		0x43218765
 
+#ifndef CRP
 #define CRP CRP_NONE
+#endif
 
 #if defined (__ICCARM__)
     __root const long CRP_Key@APPLICATION_ADDR + 0x000002FC = CRP;
