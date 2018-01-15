@@ -44,6 +44,7 @@ void lp_ticker_init()
 		RTCC->CNT=0xFFFF0000;
 		first =false;
 	}
+	
     if(!rtc_reserved) {
         core_util_critical_section_enter();
         rtc_init_real(RTC_INIT_LPTIMER);
