@@ -40,7 +40,7 @@ void mbed_sdk_init()
 
 #if defined(_SILICON_LABS_32B_SERIES_1)
     EMU_DCDCInit_TypeDef dcdcInit = EMU_DCDCINIT_DEFAULT;
-    EMU_DCDCInit(&dcdcInit);
+    //EMU_DCDCInit(&dcdcInit);
     
 #if (CORE_CLOCK_SOURCE == HFXO)
     // Only init HFXO if not already done (e.g. by bootloader)

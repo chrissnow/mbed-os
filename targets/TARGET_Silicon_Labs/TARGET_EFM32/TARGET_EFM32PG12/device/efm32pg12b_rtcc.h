@@ -165,7 +165,7 @@ typedef struct
 #define RTCC_PRECNT_PRECNT_DEFAULT          (_RTCC_PRECNT_PRECNT_DEFAULT << 0) /**< Shifted mode DEFAULT for RTCC_PRECNT */
 
 /* Bit fields for RTCC CNT */
-#define _RTCC_CNT_RESETVALUE                0x00000000UL                 /**< Default value for RTCC_CNT */
+#define _RTCC_CNT_RESETVALUE                0xFF000000UL                 /**< Default value for RTCC_CNT */
 #define _RTCC_CNT_MASK                      0xFFFFFFFFUL                 /**< Mask for RTCC_CNT */
 #define _RTCC_CNT_CNT_SHIFT                 0                            /**< Shift value for RTCC_CNT */
 #define _RTCC_CNT_CNT_MASK                  0xFFFFFFFFUL                 /**< Bit mask for RTCC_CNT */

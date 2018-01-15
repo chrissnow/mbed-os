@@ -2901,11 +2901,12 @@
         "inherits": ["EFM32"],
         "extra_labels_add": ["EFM32PG12", "1024K", "SL_CRYPTO"],
         "core": "Cortex-M4F",
-        "macros_add": ["EFM32PG12B500F1024GL125", "TRANSACTION_QUEUE_SIZE_SPI=4"],
+        "macros_add": ["EFM32PG12B500F1024GL125", "TRANSACTION_QUEUE_SIZE_SPI=4","MBED_TICKLESS"],
         "supported_toolchains": ["GCC_ARM", "ARM", "uARM", "IAR"],
         "release_versions": ["2", "5"],
         "public": false,
-        "bootloader_supported": true
+        "bootloader_supported": true,
+		"device_name": "EFM32PG12B500F1024GL125"
     },
     "EFM32PG12_STK3402": {
         "inherits": ["EFM32PG12B500F1024GL125"],
