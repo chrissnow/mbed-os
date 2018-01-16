@@ -351,7 +351,9 @@ extern "C" void PREFIX(_exit)(int return_code) {
 }
 
 extern "C" void _ttywrch(int ch) {
+#if DEVICE_SERIAL
     serial_putc(&stdio_uart, ch);
+#endif
 }
 #endif
 
@@ -709,6 +711,23 @@ extern "C" int stat(const char *path, struct stat *st) {
     }
 }
 
+extern "C" int statvfs(const char *path, struct statvfs *buf) {
+    FilePath fp(path);
+    FileSystemHandle *fs = fp.fileSystem();
+    if (fs == NULL) {
+        errno = ENODEV;
+        return -1;
+    }
+
+    int err = fs->statvfs(fp.fileName(), buf);
+    if (err < 0) {
+        errno = -err;
+        return -1;
+    } else {
+        return 0;
+    }
+}
+
 #if defined(TOOLCHAIN_GCC)
 /* prevents the exception handling name demangling code getting pulled in */
 #include "mbed_error.h"
@@ -739,6 +758,7 @@ extern "C" int errno;
 
 // Dynamic memory allocation related syscall.
 #if defined(TARGET_NUVOTON)
+
 // Overwrite _sbrk() to support two region model (heap and stack are two distinct regions).
 // __wrap__sbrk() is implemented in:
 // TARGET_NUMAKER_PFM_NUC472    targets/TARGET_NUVOTON/TARGET_NUC472/TARGET_NUMAKER_PFM_NUC472/TOOLCHAIN_GCC_ARM/nuc472_retarget.c
