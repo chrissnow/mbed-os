@@ -81,21 +81,21 @@ extern "C" {
 
 int settimeofday(const struct timeval *tv, MBED_UNUSED const struct timezone *tz)
 {
-    _mutex->lock();
+    //_mutex->lock();
     if (_rtc_init != NULL) {
         _rtc_init();
     }
     if (_rtc_write != NULL) {
         _rtc_write(tv->tv_sec);
     }
-    _mutex->unlock();
+    //_mutex->unlock();
 
     return 0;
 }
 
 int gettimeofday(struct timeval *tv, MBED_UNUSED void *tz)
 {
-    _mutex->lock();
+   // _mutex->lock();
     if (_rtc_isenabled != NULL) {
         if (!(_rtc_isenabled())) {
             set_time(0);
@@ -110,7 +110,7 @@ int gettimeofday(struct timeval *tv, MBED_UNUSED void *tz)
     tv->tv_sec  = t;
     tv->tv_usec = 0;
 
-    _mutex->unlock();
+    //_mutex->unlock();
 
     return 0;
 }
@@ -140,12 +140,12 @@ void set_time(time_t t)
 
 void attach_rtc(time_t (*read_rtc)(void), void (*write_rtc)(time_t), void (*init_rtc)(void), int (*isenabled_rtc)(void))
 {
-    _mutex->lock();
+    //_mutex->lock();
     _rtc_read = read_rtc;
     _rtc_write = write_rtc;
     _rtc_init = init_rtc;
     _rtc_isenabled = isenabled_rtc;
-    _mutex->unlock();
+    //_mutex->unlock();
 }
 
 
